@@ -8,7 +8,7 @@ data = pd.read_csv(r"SQL_oppgave1/randoms.csv")
 conn = sqlite3.connect("SQL_oppgave1/Random.db")
 c = conn.cursor()
 
-def createTable():
+def funcCreateTable():
     # Create a table with required columns and primary key so there wouldn't be duplicates
     c.execute(
         """
@@ -23,7 +23,7 @@ def createTable():
         """
         )
 
-def insertData():
+def funcInsertData():
     # for loop for inserting everything from csv file in corect rows
     for index, row in data.iterrows():
         c.execute(
@@ -35,8 +35,8 @@ def insertData():
         )
 
 def main():
-    createTable()
-    insertData()
+    funcCreateTable()
+    funcInsertData()
 
 if __name__ == "__main__":
     main()
