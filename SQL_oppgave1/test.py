@@ -1,11 +1,14 @@
 import pandas as pd
 import sqlite3
 
+# Read datad from excel file
 data = pd.read_csv(r"SQL_oppgave1/randoms.csv")
 
+# Connect to database
 conn = sqlite3.connect("SQL_oppgave1/Random.db")
 c = conn.cursor()
 
+# Create a table with required columns and primary key so there wouldn't be duplicates
 c.execute(
     """
     CREATE TABLE IF NOT EXISTS userData (
@@ -19,6 +22,7 @@ c.execute(
     """
     )
 
+# for loop for inserting everything from csv file in corect rows
 for index, row in data.iterrows():
     c.execute(
         """
@@ -28,5 +32,6 @@ for index, row in data.iterrows():
         (row['fname'], row['ename'], row['epost'], row['tlf'], row['postnummer'])
     )
 
+# committing everything into database and closing connection
 conn.commit()
 conn.close()
