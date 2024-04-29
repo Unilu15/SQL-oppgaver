@@ -8,29 +8,38 @@ data = pd.read_csv(r"SQL_oppgave1/randoms.csv")
 conn = sqlite3.connect("SQL_oppgave1/Random.db")
 c = conn.cursor()
 
-# Create a table with required columns and primary key so there wouldn't be duplicates
-c.execute(
-    """
-    CREATE TABLE IF NOT EXISTS userData (
-    fname str,
-    ename str,
-    epost str,
-    tlf int,
-    postnummer int,
-    PRIMARY KEY(epost)
-    )
-    """
-    )
-
-# for loop for inserting everything from csv file in corect rows
-for index, row in data.iterrows():
+def createTable():
+    # Create a table with required columns and primary key so there wouldn't be duplicates
     c.execute(
         """
-        INSERT INTO userData (fname, ename, epost, tlf, postnummer)
-        VALUES (?,?,?,?,?)
-        """,
-        (row['fname'], row['ename'], row['epost'], row['tlf'], row['postnummer'])
-    )
+        CREATE TABLE IF NOT EXISTS userData (
+        fname str,
+        ename str,
+        epost str,
+        tlf int,
+        postnummer int,
+        PRIMARY KEY(epost)
+        )
+        """
+        )
+
+def insertData():
+    # for loop for inserting everything from csv file in corect rows
+    for index, row in data.iterrows():
+        c.execute(
+            """
+            INSERT INTO userData (fname, ename, epost, tlf, postnummer)
+            VALUES (?,?,?,?,?)
+            """,
+            (row['fname'], row['ename'], row['epost'], row['tlf'], row['postnummer'])
+        )
+
+def main():
+    createTable()
+    insertData()
+
+if __name__ == "__main__":
+    main()
 
 # committing everything into database and closing connection
 conn.commit()
