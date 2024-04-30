@@ -2,10 +2,10 @@ import pandas as pd
 import sqlite3
 
 # Read datad from excel file
-data = pd.read_csv(r"SQL_oppgave1/Postnummerregister.csv")
+data = pd.read_csv(r"SQL_oppgave2/Postnummerregister.csv")
 
 # Connect to database
-conn = sqlite3.connect("SQL_oppgave1/Random.db")
+conn = sqlite3.connect("Random.db")
 c = conn.cursor()
 
 def funcCreateTable():
@@ -13,11 +13,11 @@ def funcCreateTable():
     c.execute(
         """
         CREATE TABLE IF NOT EXISTS postnummerBasen (
-        postnummer int,
-        poststed TEXT,
-        kommunenummer int,
-        kommunenavn TEXT,
-        kategori TEXT,
+        Postnummer str,
+        Poststed str,
+        Kommunenummer str,
+        Kommunenavn str,
+        Kategori str,
         PRIMARY KEY(postnummer)
         )
         """
@@ -28,15 +28,15 @@ def funcInsertData():
     for index, row in data.iterrows():
         c.execute(
             """
-            INSERT INTO userData (postnummer, poststed, kommunenummer, kommunenavn, kategori)
+            INSERT INTO postnummerBasen (Postnummer, Poststed, Kommunenummer, Kommunenavn, Kategori)
             VALUES (?,?,?,?,?)
             """,
-            (row['postnummer'], row['poststed'], row['kommunenummer'], row['kommunenavn'], row['kategori'])
+            (row['Postnummer'], row['Poststed'], row['Kommunenummer'], row['Kommunenavn'], row['Kategori'])
         )
 
 def main():
     funcCreateTable()
-    funcInsertData()
+    #funcInsertData()
 
 if __name__ == "__main__":
     main()

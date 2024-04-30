@@ -5,7 +5,7 @@ import sqlite3
 data = pd.read_csv(r"SQL_oppgave1/randoms.csv")
 
 # Connect to database
-conn = sqlite3.connect("SQL_oppgave1/Random.db")
+conn = sqlite3.connect("Random.db")
 c = conn.cursor()
 
 def funcCreateTable():
