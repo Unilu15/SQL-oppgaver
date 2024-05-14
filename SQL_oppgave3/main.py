@@ -34,7 +34,8 @@ def fill_tables():
         connection = sqlite3.connect('kundeliste.db')
         cursor = connection.cursor()
         
-        # Code to fill tables from files
+        cursor.execute("INSERT INTO kundeinfo(kundenummer, navn, adresse, telefonnummer) VALUES(?,?,?,?)",
+                       (1, "Bob", "Oslo", 394830482))
         
         connection.commit()
         print("Tables filled with data successfully!")
