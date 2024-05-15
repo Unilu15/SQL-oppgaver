@@ -1,5 +1,4 @@
 import sqlite3
-import os
 
 # Database file name
 DB_NAME = 'kundeliste.db'
